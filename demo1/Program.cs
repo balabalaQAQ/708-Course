@@ -11,6 +11,7 @@ namespace demo1
         static void Main(string[] args)
         {
             var text = new CourseDBEntities().Courses.ToList();
+            Console.Write(0);
         }
     }
 }
