@@ -11,3 +11,10 @@ F:\20170310084覃添钰\demo\demo1\demo1\obj\Debug\demo1.pdb
 F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\demo1.exe.config
 F:\20170310084覃添钰\VS\demo1\demo1\obj\Debug\demo1.exe
 F:\20170310084覃添钰\VS\demo1\demo1\obj\Debug\demo1.pdb
+F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\demo1.exe
+F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\demo1.pdb
+F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\EntityFramework.dll
+F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\EntityFramework.SqlServer.dll
+F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\EntityFramework.xml
+F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\EntityFramework.SqlServer.xml
+F:\20170310084覃添钰\VS\demo1\demo1\obj\Debug\demo1.csprojResolveAssemblyReference.cache
