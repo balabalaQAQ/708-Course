@@ -29,10 +29,20 @@ namespace demo1
                 //更新上下文，把新的实体保存到数据库中
                 text.SaveChanges();
 
+                //修改
+                var eidtDepartment = text.Departments.SingleOrDefault(x => x.Name == "环境与食品学院");
+                if (eidtDepartment != null)
+                {
+                    eidtDepartment.Name = "环境与食品检测学院";
+                    eidtDepartment.SortCode = "008";
+                    text.SaveChanges();
+                }
+                else
+                    Console.WriteLine("未找到该记录,不能修改。");
                 //显示新的记录
                 var departments = text.Departments.OrderBy(n => n.SortCode).ToList();
                 foreach (var d in departments)
-                    Console.WriteLine("编号{0},部门名称{1}，说明{2}", d.SortCode, d.Name, d.Dscn);
+                    Console.WriteLine("编号:{0},部门名称:{1}，说明:{2}", d.SortCode, d.Name, d.Dscn);
                 Console.ReadKey();
             }
         }
