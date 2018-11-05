@@ -11,10 +11,10 @@ namespace codefirstdemo
     {
         static void Main(string[] args)
         {
-            using (var context = new CourseContext())
-            {
-                Console.WriteLine("ef初始化");
-            }
+            var students = new CourseContext().Student.OrderBy(x => x.StudentCode).ToList();
+            foreach (var s in students)
+                Console.WriteLine("学号：{0} 姓名{1}",s.StudentCode , s.Name);
+            Console.ReadKey();
         }
     }
 }
