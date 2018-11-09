@@ -41,8 +41,6 @@ namespace codefirstdemo.Migrations
             context.Departments.Add(d3);
             context.Departments.Add(d4);
             context.SaveChanges();
-
-
         }
     }
 }
