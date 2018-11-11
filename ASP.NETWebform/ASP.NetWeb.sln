@@ -3,14 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "ASP.NETWeb\Scripts\Entities\Entities.csproj", "{B301D997-6DE4-4E86-BA47-8F31F190C8C3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContext", "ASP.NETWeb\Scripts\DataContext\DataContext.csproj", "{94E491FE-0061-45D8-878F-066231274830}"
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ASP.NETWeb", "ASP.NETWeb\", "{905BDC8B-D1B9-409F-884E-43FEA7118256}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		ProjectReferences = "{b301d997-6de4-4e86-ba47-8f31f190c8c3}|Entities.dll;{94e491fe-0061-45d8-878f-066231274830}|DataContext.dll;"
+		ProjectReferences = "{94e491fe-0061-45d8-878f-066231274830}|DataContext.dll;{b301d997-6de4-4e86-ba47-8f31f190c8c3}|Entities.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_2371"
 		Debug.AspNetCompiler.PhysicalPath = "ASP.NETWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2371\"
@@ -29,24 +25,28 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ASP.NETWeb", "ASP.NETWeb\",
 		SlnRelativePath = "ASP.NETWeb\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContext", "DataContext\DataContext.csproj", "{94E491FE-0061-45D8-878F-066231274830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{B301D997-6DE4-4E86-BA47-8F31F190C8C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94E491FE-0061-45D8-878F-066231274830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94E491FE-0061-45D8-878F-066231274830}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94E491FE-0061-45D8-878F-066231274830}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94E491FE-0061-45D8-878F-066231274830}.Release|Any CPU.Build.0 = Release|Any CPU
 		{905BDC8B-D1B9-409F-884E-43FEA7118256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{905BDC8B-D1B9-409F-884E-43FEA7118256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{905BDC8B-D1B9-409F-884E-43FEA7118256}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{905BDC8B-D1B9-409F-884E-43FEA7118256}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{94E491FE-0061-45D8-878F-066231274830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E491FE-0061-45D8-878F-066231274830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E491FE-0061-45D8-878F-066231274830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E491FE-0061-45D8-878F-066231274830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B301D997-6DE4-4E86-BA47-8F31F190C8C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
