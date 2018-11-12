@@ -64,7 +64,7 @@ public partial class ProductList : System.Web.UI.Page
             var sn = (row.Cells[0].Controls[0] as TextBox).Text.Trim();
             var name = (row.Cells[1].Controls[1] as TextBox).Text.Trim();
             var phone = (row.Cells[2].Controls[2] as TextBox).Text.Trim();
-
+             
             p.StudentCode = sn;
             p.Name = name;
             p.Phone = phone;
@@ -76,7 +76,7 @@ public partial class ProductList : System.Web.UI.Page
 
     protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
     {
-        GridView1.PageIndex = e.NewEditIndex;
+        GridView1.EditIndex = e.NewEditIndex;
         _getData();
     }
 }
