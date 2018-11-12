@@ -44,4 +44,39 @@ public partial class ProductList : System.Web.UI.Page
         GridView1.PageIndex = e.NewPageIndex;
         _getData();
     }
+
+    protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        GridView1.EditIndex = -1;
+        _getData();
+    }
+    //保存修改
+    protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        var id = Guid.Parse(GridView1.DataKeys[e.RowIndex].Value.ToString());
+        using (var context = new DataContext.StuDBContext())
+        {
+            //查询出要修改这条记录
+            var p = context.Students.Find(id);
+            //读出gridview中用户编辑的字段，给每个允许修改的实体属性赋值
+            //获取用户编辑的这一行
+            var row = GridView1.Rows[e.RowIndex];
+            var sn = (row.Cells[0].Controls[0] as TextBox).Text.Trim();
+            var name = (row.Cells[1].Controls[1] as TextBox).Text.Trim();
+            var phone = (row.Cells[2].Controls[2] as TextBox).Text.Trim();
+
+            p.StudentCode = sn;
+            p.Name = name;
+            p.Phone = phone;
+            context.SaveChanges();
+        }
+        GridView1.EditIndex = -1;
+        _getData();
+    }
+
+    protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        GridView1.PageIndex = e.NewEditIndex;
+        _getData();
+    }
 }
