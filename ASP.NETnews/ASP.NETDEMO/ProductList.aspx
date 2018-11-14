@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="ProductList.aspx.cs" Inherits="ProductList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <h4 style="text-align:center">商品列表</h4>
-    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowDeleting="GridView1_RowDeleting" PageSize="15" HorizontalAlign="Center" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating">
+    <h4 style="text-align:center">商品列表<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+    </h4>
+    <asp:GridView ID="GridView1"  runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowDeleting="GridView1_RowDeleting" PageSize="15" HorizontalAlign="Center" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating">
         <Columns>
             <asp:BoundField DataField="StudentCode" HeaderText="学号">
             <ItemStyle Width="150px" />
@@ -12,6 +13,9 @@
             </asp:BoundField>
             <asp:BoundField DataField="Phone" HeaderText="电话">
             <ItemStyle Width="150px" />
+            </asp:BoundField>
+            <asp:BoundField HeaderText="所属学院">
+            <ItemStyle HorizontalAlign="Center" Width="150px" />
             </asp:BoundField>
             <asp:TemplateField HeaderText="操作" ShowHeader="False">
                 <EditItemTemplate>

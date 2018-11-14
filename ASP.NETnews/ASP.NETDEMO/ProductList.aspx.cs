@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -64,10 +65,11 @@ public partial class ProductList : System.Web.UI.Page
             var sn = (row.Cells[0].Controls[0] as TextBox).Text.Trim();
             var name = (row.Cells[1].Controls[1] as TextBox).Text.Trim();
             var phone = (row.Cells[2].Controls[2] as TextBox).Text.Trim();
-             
+            var department = (row.Cells[3].Controls[3] as TextBox).Text.Trim();
             p.StudentCode = sn;
             p.Name = name;
             p.Phone = phone;
+            p.Department = context.Departments.Single(x => x.Name == department);
             context.SaveChanges();
         }
         GridView1.EditIndex = -1;
@@ -79,4 +81,12 @@ public partial class ProductList : System.Web.UI.Page
         GridView1.EditIndex = e.NewEditIndex;
         _getData();
     }
+
+    protected string GetName(object obj)
+    {
+        if (obj !=null)
+            return((Department))
+    }
+
+
 }
