@@ -26,4 +26,13 @@ public partial class B : System.Web.UI.Page
             Label1.Text = cstr;
         }
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        //手工方式
+        //Session.Remove("C");
+        //立即过期
+        Session.Abandon();
+        Response.Redirect("～/B.aspx");
+    }
 }
