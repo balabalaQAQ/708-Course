@@ -8,11 +8,7 @@ namespace Entities
 {
     public class Catagory
     {
-        public Guid ID { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
-        public Catagory()
-        {
-            ID = Guid.NewGuid();
-        }
     }
 }

@@ -1,5 +1,6 @@
 namespace DataContext.Migrations
 {
+    using Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -18,6 +19,14 @@ namespace DataContext.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
+            context.Database.ExecuteSqlCommand("delete Cominfoes");
+            context.Database.ExecuteSqlCommand("delete Catagories");
+            CatagorySeed.Seed(context);
+            context.SaveChanges();
+            CominfoSeed.Seed(context);
+            context.SaveChanges();
+
         }
     }
 }

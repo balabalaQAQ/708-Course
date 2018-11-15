@@ -14,28 +14,28 @@ namespace DataContext.Migrations
         {
             var d1 = new Catagory()
             {
-                ID=Guid.NewGuid(),
-                Name="商品01"
+                ID = "001",
+                Name="日常用品"
             };
             var d2 = new Catagory()
             {
-                ID = Guid.NewGuid(),
-                Name = "商品02"
+                ID = "002",
+                Name = "电竞设备"
             };
             var d3 = new Catagory()
             {
-                ID = Guid.NewGuid(),
-                Name = "商品03"
+                ID = "003",
+                Name = "动漫周边"
             };
             var d4 = new Catagory()
             {
-                ID = Guid.NewGuid(),
-                Name = "商品04"
+                ID = "004",
+                Name = "进口商品"
             };
             var d5 = new Catagory()
             {
-                ID = Guid.NewGuid(),
-                Name = "商品05"
+                ID = "005",
+                Name = "家用电器"
             };
             context.Catagory.Add(d1);
             context.Catagory.Add(d2);
@@ -43,6 +43,5 @@ namespace DataContext.Migrations
             context.Catagory.Add(d4);
             context.Catagory.Add(d5);
         }
-
     }
 }
