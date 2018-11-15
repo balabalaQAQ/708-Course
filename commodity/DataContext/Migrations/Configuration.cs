@@ -5,14 +5,14 @@ namespace DataContext.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DataContext.ProductContex>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataContext.ProductContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(DataContext.ProductContex context)
+        protected override void Seed(DataContext.ProductContext context)
         {
             //  This method will be called after migrating to the latest version.
 

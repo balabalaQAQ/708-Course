@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataContext
 {
-    public class ProductContex: DbContext
+    public class ProductContext: DbContext
     {
         public DbSet<Catagory> Catagory { get; set; }
         public DbSet<Cominfo> Cominfo { get; set; }

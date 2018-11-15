@@ -4,9 +4,15 @@
     <h4 style="text-align:center">商品列表</h4>
     <asp:GridView ID="GridView1"  runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowDeleting="GridView1_RowDeleting" PageSize="15" HorizontalAlign="Center" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         <Columns>
-            <asp:BoundField DataField="StudentCode" HeaderText="学号">
-            <ItemStyle Width="150px" />
-            </asp:BoundField>
+            <asp:TemplateField HeaderText="查看">
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Eval("StudentCode") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# Eval("ID", "StudentDetail.aspx?id={0}") %>' Text='<%# Eval("StudentCode") %>'></asp:HyperLink>
+                </ItemTemplate>
+                <ItemStyle Width="150px" />
+            </asp:TemplateField>
             <asp:BoundField DataField="Name" HeaderText="名字">
             <ItemStyle Width="150px" />
             </asp:BoundField>
