@@ -36,7 +36,7 @@ public partial class _Default : Page
         GridView1.EditIndex = e.NewEditIndex;
         _getData();
         //查询出所有的分类
-        var context =new ProductContext() { }
+        var context = new ProductContext() { };
     }
     //翻页
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
