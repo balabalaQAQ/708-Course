@@ -42,6 +42,7 @@ namespace DataContext.Migrations
             context.Catagory.Add(d3);
             context.Catagory.Add(d4);
             context.Catagory.Add(d5);
+            context.SaveChanges();
         }
     }
 }

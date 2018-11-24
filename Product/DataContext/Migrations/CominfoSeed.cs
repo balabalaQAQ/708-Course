@@ -67,7 +67,7 @@ namespace DataContext.Migrations
                 };
                 context.Cominfo.Add(d5);
             }
-         
+            context.SaveChanges();
 
         }
     }
