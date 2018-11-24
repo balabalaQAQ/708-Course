@@ -19,6 +19,19 @@ public partial class _Default : Page
                 DropDownList1.DataTextField = "Name";
                 DropDownList1.DataValueField = "ID";
                 DropDownList1.DataBind();
+            
+           
+                var list = context.Cominfo
+                    .Select(x => new
+                    {
+                        SN = x.SN,
+                        Name = x.Name,
+                        DSCN = x.DSCN,
+                        Catagory = x.Catagory.Name
+                    }).Take(20).ToList();
+                GridView1.DataSource = list;
+                GridView1.DataBind();
+
             }
         }
     }
@@ -34,8 +47,11 @@ public partial class _Default : Page
                     SN = x.SN,
                     Name = x.Name,
                     DSCN = x.DSCN,
-                    Catagory =x.Catagory
-                })
+                    Catagory = x.Catagory.Name
+                }).Take(20).ToList();
+            GridView1.DataSource = list;
+            GridView1.DataBind();
+
         }
     }
 }
