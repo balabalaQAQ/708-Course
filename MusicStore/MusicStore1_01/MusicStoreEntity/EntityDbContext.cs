@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicStoreEntity
+namespace MusicStoreEntities
 {
+    //使用带用户认证权限机制的实体框架
     public class EntityDbContext : IdentityDbContext<ApplicationUser>
     {
         //调用基类的构造函数
@@ -23,7 +24,7 @@ namespace MusicStoreEntity
         public IDbSet<ApplicationInformation> ApplicationInformations { get; set; }
         public IDbSet<ApplicationBusinessType> ApplicationBusinessTypes { get; set; }
         public IDbSet<ApplicaitionUserInApplication> ApplicaitionUserInApplications { get; set; }
-        public IDbSet<ApplicationUser> Persons { get; set; }
+        public IDbSet<Person> Persons { get; set; }
 
         #endregion
     }
