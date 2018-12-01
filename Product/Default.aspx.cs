@@ -51,7 +51,8 @@ public partial class _Default : Page
                 }).Take(20).ToList();
             GridView1.DataSource = list;
             GridView1.DataBind();
-
+            
         }
+
     }
 }
