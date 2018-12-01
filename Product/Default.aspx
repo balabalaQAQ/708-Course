@@ -10,6 +10,7 @@
         <asp:BoundField DataField="Name" HeaderText="商品名字" />
         <asp:BoundField DataField="DSCN" HeaderText="说明" />
         <asp:BoundField DataField="Catagory" HeaderText="商品类别" />
+        <asp:CommandField EditText="修改" HeaderText="操作" InsertText="添加" ShowDeleteButton="True" ShowEditButton="True" ShowInsertButton="True" />
     </Columns>
     <RowStyle HorizontalAlign="Center" Width="150px" />
     </asp:GridView>
