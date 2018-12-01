@@ -18,3 +18,6 @@ F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\EntityFramework.SqlServer.dll
 F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\EntityFramework.xml
 F:\20170310084覃添钰\VS\demo1\demo1\bin\Debug\EntityFramework.SqlServer.xml
 F:\20170310084覃添钰\VS\demo1\demo1\obj\Debug\demo1.csprojResolveAssemblyReference.cache
+G:\程序\柳职\柳职VS GIT\708-Course\demo1\bin\Debug\demo1.exe.config
+G:\程序\柳职\柳职VS GIT\708-Course\demo1\obj\Debug\demo1.exe
+G:\程序\柳职\柳职VS GIT\708-Course\demo1\obj\Debug\demo1.pdb
