@@ -18,6 +18,40 @@ namespace MusicStore.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterViewModel model)
+        {
+            var idManager = new IdentityManager();
+            var person = new Person()
+            {
+                FirstName = model.UserName,
+                LastName = model.UserName,
+                Name = model.UserName,
+                CredentialsCode = "452222198210090011",
+                Birthday = DateTime.Now,
+                Sex = false,
+                MobileNumber = "13899998888",
+                Email =model.Email,
+                CreateDateTime = DateTime.Now,
+                TelephoneNumber = "80861688",
+                Description = "用户",
+                UpdateTime = DateTime.Now,
+                InquiryPassword = model.PassWord,
+            };
+            var newUser = new ApplicationUser()
+            {
+                FirstName = model.FullName,
+                UserName = model.UserName,
+                ChineseFullName = model.UserName,
+                Email = model.Email,
+                Person = person,
+            };
+            idManager.CreateUser(newUser, model.PassWord);
+            idManager.AddUserToRole(newUser.Id, "RegisterUser");
+            return View();
+        }
+
 
         /// <summary>
         /// 登录方法
@@ -35,6 +69,7 @@ namespace MusicStore.Controllers
         }
 
         [HttpPost]   //此Action用来接收用户提交
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             //判断实体是否校验通过
