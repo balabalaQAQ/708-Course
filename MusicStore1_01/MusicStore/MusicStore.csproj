@@ -323,11 +323,12 @@
     <Content Include="Views\Order\Buy.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Order\AddressPerson.cshtml" />
+    <Content Include="Views\AddressPerson\AddressPerson.cshtml" />
+    <Content Include="Views\AddressPerson\Index.cshtml" />
+    <Content Include="Views\AddressPerson\EidtAddressPerson.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AddressPerson\" />
     <Folder Include="Views\RevisePwd\" />
   </ItemGroup>
   <ItemGroup>
