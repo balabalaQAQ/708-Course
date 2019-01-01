@@ -4,63 +4,213 @@
     Layout = "~/Views/Shared/_NewLayout.cshtml";
     ViewBag.Title = "专辑明细";
 }
-<h2>@Model.Title</h2>
+<div class="row">
+    <div class="col-md-6 Music-box">
+        <div id="Music-Jukebox">
+            <img alt="@Model.Title" src="@Model.AlbumArtUrl" />
+            @*<div class="Music-white"></div>*@
+        </div>
+    </div>
+    <audio src="@Model.MusicUrl" id="myMusic" controls="controls"></audio>
+    <div id="album-details" class="col-md-6">
+        <h2>@Model.Title</h2>
+        <p>
+            <img alt="@Model.Title" src="@Model.AlbumArtUrl" />
+        </p>
+        <p>
+            <em>
+                发布时间：
+            </em>
+            @Model.PublisherDate.ToString("yyyy年MM月dd日");
+        </p>
+        <p>
+            <em>
+                分类：
+            </em>
+            @Model.Genre.Name
+        </p>
+        <p>
+            <em>
+                歌手：
+            </em>
+            @Model.Artist.Name
+        </p>
+        <p>
+            <em>
+                价格：
+            </em>
+            ￥@String.Format("{0:F}", Model.Price)
+        </p>
 
-<p>
-    <img alt="@Model.Title" src="@Model.AlbumArtUrl" />
-</p>
-
-<div id="album-details">
-    <p>
-        <em>
-            发布时间：
-        </em>
-        @Model.PublisherDate.ToString("yyyy年MM月dd日");
-    </p>
-    <p>
-        <em>
-            分类：
-        </em>
-        @Model.Genre.Name
-    </p>
-    <p>
-        <em>
-            歌手：
-        </em>
-        @Model.Artist.Name
-    </p>
-    <p>
-        <em>
-            价格：
-        </em>
-        ￥@String.Format("{0:F}", Model.Price)
-    </p>
-
-    <div id="msg"></div>
-    <p class="button">
-        <a class="btn" id="addcart">添加到购物车</a>
         <div id="msg"></div>
-    </p>
-
+        <p class="button">
+            <a class="btn" id="addcart">添加到购物车</a>
+            <div id="msg"></div>
+        </p>
+    </div>
 </div>
-<script>
-    $("#addcart").click(function ()
+
+
+<div id="Reply">
+    <div class="Reply-title"><span style="font-size:30px;">评论</span>  共&条评论</div>
+    <div class="row Reply-user">
+        <div class="col-md-2 Reply-text"><span style="text-align:center;">@Html.Raw(ViewBag.name)</span><img alt="加载失败" src="@ViewBag.img" id="Musicuser_img" /></div>
+        <div class="col-md-10 Reply-ueditor">
+            <script id="container" name="content" type="text/plain">
+                <input type="hidden" id="pReplyID" />
+            </script>
+            <input type="button" value="发表评论" id="Reply-btn" />
+        </div>
+
+    </div>
+    <br />
+    <br />
+    <div id="Person-Reply">
+        @foreach (var i in Model.Reply.OrderByDescending(x => x.ReplyTime))
+        {
+            <div class="Music-Reply">
+                <img src="@i.Person.Avarda" alt="加载失败" />
+                <div id="Content-@i.ID" class="Music-content">  @i.Person.Name：@Html.Raw(i.Content) </div>
+                <div class="Reply-time">
+                    <a href="#container" onclick="javascript: GetQuote('@i.ID');">回复</a><a href="#"onclick="javascript:ShowCmt('@i.ID');">(@ViewBag.count)</a>
+                    | <a href="#" onclick="javascript:Like('@i.ID');"><i class="glyphicon glyphicon-thumbs-up"></i>（@i.Like）</a>
+                    | <a href="#" onclick= "javascript:Hoke('@i.ID');"><i class="glyphicon glyphicon-thumbs-down"></i>（@i.Hate）</a> |  发表时间：@i.ReplyTime
+                </div>
+            </div>
+        }
+        @if (Model.Reply.Count == 0)
+        {
+            <div class="Reply-null">暂无评论内容</div>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content"id="Div-SonCmts">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  
+                </h4>
+            </div>
+            <div class="modal-body">
+               
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 配置文件 -->
+<script type="text/javascript" src="~/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="~/ueditor/ueditor.all.js"></script>
+<!--<script type="text/javascript" charset="utf-8" src="~/ueditor/lang/zh-cn/zh-cn.js"></script>-->
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    
+      /*回复*/
+    function GetQuote(id)
     {
+        
+        //保存该评论的id
+        $("#pReplyID").val(id);
+
+        //取回复的内容
+        var divName = 'Content-' + id;
+        console.log(divName);
+        var content = $("#" + divName).html();
+        //把内容赋值给ueditor
+        var ue = UE.getEditor('container');
+        ue.ready(function () {
+            ue.setContent(content);
+        });
+    }
+
+    function ShowCmt(id)
+    {
+        //ajax查询出子回复
+        $.ajax({
+            type: 'post',
+            async: true,
+            url: '../../Store/ShowCmt',
+            data: {pid: id },
+            dataType: 'json',
+            success: function (data) {
+                $("#Div-SonCmts").html(data);
+                $('#myModal').modal('toggle');
+            }
+        });
+    }
+    var ue = UE.getEditor('container');
+  
+    //var ue = UE.getContent();
+    //对编辑器的操作最好在编辑器ready之后再做
+
+    //设置编辑器的内容
+    //ue.setContent('hello');
+    //获取html内容，返回: <p>hello</p>
+    // var html = ue.getContent();
+    //获取纯文本内容，返回: hello
+
+    /*评论*/
+    $("#Reply-btn").click(function () {
+        //设置编辑器的内容
+        //ue.setContent('hello');
+        var txt = ue.getContentTxt();
+        var pid = $("#pReplyID").val();
+        var html = ue.getContent();
+        
+        $.ajax({
+            type: 'post',
+            async: true,
+            url: '../../Ueditor/Index',
+            data: { id: "@Model.ID", "cmt": html, "Replys": pid },
+            dataType: 'json',
+           
+            success: function (data) {
+                //如果没有登录,跳转到登录页
+                if (data == "nologin") {
+                    location.href = "@Url.Action("login","Account",new { returnUrl = Url.Action("Detail", "Store", new { id = Model.ID }) })";
+                    ue.setContent() = html;
+                }
+                else {
+                    //添加评论成功
+                    $("#Person-Reply").html(data);
+                    //清空内容
+                    ue.setContent('');
+                    alert('评论成功！');
+
+                    //重新刷新此区域
+                    //location.reload();
+                }
+            }
+        });
+    });
+
+</script>
+<script>
+
+    /*添加*/
+    $("#addcart").click(function () {
         //异步
         $("#msg").html("<img src ='../../content/images/loading.gif'>添加购物车请稍后...");
         $.ajax({
             type: 'post',
             async: true,
             url: '../../ShoppingCart/AddCart',
-            data: {id:"@Model.ID"},
-            dataType:'json',
-            success:function(data){
+            data: { id: "@Model.ID" },
+            dataType: 'json',
+            success: function (data) {
                 //如果没有登录,跳转到登录页
-                if(data =="nologin")
-                    location.href="@Url.Action("login","Account",new { returnUrl = Url.Action("Detail", "Store", new { id = Model.ID }) })";
-                else{
+                if (data == "nologin")
+                    location.href = "@Url.Action("login","Account",new { returnUrl = Url.Action("Detail", "Store", new { id = Model.ID }) })";
+                else {
                     //添加到购物车成功，把动画取消
-                    
                     $("#msg").html(data);
                     //2S后，重新刷新此区域
                     setTimeout(function () {
@@ -70,4 +220,70 @@
             }
         });
     });
+
+
+
+    /*动画*/
+    var onOff = true;
+    var audio = document.getElementById('myMusic').paused;
+    $("#Music-Jukebox").click(function Music() {
+        if (audio == true) {
+            this.className = "rotate";
+            alert("4");
+        }
+        if (onOff) {
+            myMusic.play();
+            this.className = "rotate";
+            audio.paused = true;
+        }
+        else {
+            myMusic.pause();//暂停音乐
+            this.className = "Music-Jukebox ";
+            audio.paused = false;
+        }
+
+        onOff = !onOff;
+    });
+
+    //点赞
+    function Like(id) {
+        $.ajax({
+            type: 'post',
+            asyn: true,
+            url: '../../Store/Like',
+            data: { id: id, "Isnot": true },
+            dataType: 'json',
+            success: function (data) {
+                if (data == "nologin")
+                    location.href = "@Url.Action("login","Account",new { returnUrl = Url.Action("Detail", "Store", new { id = Model.ID }) })";
+                else {
+                    $("#Person-Reply").html(data);
+                }
+                //detail
+                //modal
+            }
+        });
+    }
+
+    //踩
+    function Hoke(id) {
+        $.ajax({
+            type: 'post',
+            asyn: true,
+            url: '../../Store/Like',
+            data: { id: @Model.ID, "Isnot": false },
+            dataType: 'json',
+            success: function (data) {
+                if (data == "nologin")
+                    location.href = "@Url.Action("login","Account",new { returnUrl = Url.Action("Detail", "Store", new { id = Model.ID }) })";
+                else {
+                    $("#Person-Reply").html(data);
+                }
+                //detail
+                //modal
+            }
+        });
+    }
+
+
 </script>

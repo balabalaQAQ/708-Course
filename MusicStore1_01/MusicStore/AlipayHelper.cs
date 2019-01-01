@@ -30,7 +30,7 @@ namespace MusicStore
             request.Timeout = 12000;
             try
             {
-                HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
+                HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
                 Stream stream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(stream);
                 string result = await reader.ReadToEndAsync();

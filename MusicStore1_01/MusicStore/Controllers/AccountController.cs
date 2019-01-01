@@ -13,6 +13,7 @@ namespace MusicStore.Controllers
 {
     public class AccountController : Controller
     {
+        private static readonly EntityDbContext _context = new EntityDbContext();
         // GET: Account
         public ActionResult Register()
         {
@@ -61,7 +62,7 @@ namespace MusicStore.Controllers
                 idManager.CreateUser(newUser, model.PassWord);
                 idManager.AddUserToRole(newUser.Id, "RegisterUser");
 
-                return Content("<script>alert('恭喜注册成功!');location.href='" + Url.Action("Account", "login") +
+                return Content("<script>alert('恭喜注册成功!');location.href='" + Url.Action("Login", "Account") +
                                "'</script>");
                
             }
@@ -214,6 +215,33 @@ namespace MusicStore.Controllers
             Session.Remove("loginStatus");
             Session.Remove("LoginUserSessionModel");
             return RedirectToAction("index", "Home");
+        }
+        /// <summary>
+        /// 自动刷新页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult SRefreshUser(Guid id )
+        {
+            var person = _context.Persons.SingleOrDefault(x => x.ID == id);
+            if (person == null) return View();
+
+            string HtmlString="";
+            var Cart = _context.Cart.Where(x => x.Person.ID == id).ToList();
+            HtmlString += "<input type=hidden id=" + person.ID + " value=" + person.ID + "/>";
+            HtmlString += "<a href =\"#\" class=\"dropdown-toggle\" data-toggle=dropdown  role = button   aria-haspopup=true aria-expanded=false>";
+            HtmlString += " <img src =" + person.Avarda + " style = \"height:25px;width:25px; border-radius:50%;\" />";
+            HtmlString += " " +person.Name+ "<span class=\"caret\"></span> </a>";
+            HtmlString += "<ul class=\" dropdown-menu \">";
+            HtmlString += "<li><a href =\"/ShoppingCart/ShoppingCart\">购物车（" + Cart.Count+ "）</a> </li>";
+            HtmlString += "<li><a href = \"/Order/index\">我的订单</a> </li>";
+            HtmlString += "<li><a href = \"/AddressPerson/index\">设置收件人</a></li>";
+            HtmlString += "<li><a href = \"/my/index\">个人信息</a> </li>";
+            HtmlString += "<li><a href = \"/RevisePwd/Account\">修改密码</a> </li>";
+            HtmlString += "<li><a href = \"/Account/loginout\">注销</a> </li>";
+            HtmlString += "</ul>";
+            return Json(HtmlString);
         }
     }
 }

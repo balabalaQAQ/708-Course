@@ -16,7 +16,7 @@
         {
             <li>
                 <a href="@Url.Action("detail","Store",new { id=item.ID})">
-                    <i class=""></i><img alt="@item.Title" src="@item.AlbumArtUrl" /><br />
+                    <img alt="@item.Title" src="@item.AlbumArtUrl" style="width:150px; height:100px;" /><br />
                     <span>作者：@item.Artist.Name</span><br />
                     <span>发布时间 &nbsp; @item.Title</span>
                 </a>

@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<MusicStoreEntity.Order>
+@using MusicStoreEntity
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_newLayout.cshtml";
 }
-
 <fieldset>
+    
     <legend>我的订单</legend>
     <div class="table-responsive ">
         <table class="table table-bordered table-hover">
@@ -28,9 +29,10 @@
                         <td style="line-height:100px;color:red;">@l.TotalPrice.ToString("C")</td>
                         <td style="line-height:100px;">
                             @l.EnumOrdelStatus
-                            <button type="submit" class="btn btn-success" style="width:100px">
-                                <i class="glyphicon glyphicon-shopping-cart">立即支付</i>
-                            </button>
+                            @if (l.EnumOrdelStatus == EnumOrdelStatus.未付款)
+                            {
+                                <a style="color: white;width:60%" class="btn btn-success" href="@Url.Action("alipay","Pay",new {id= l.ID})"><i class="glyphicon glyphicon-usd" ></i>立即支付</a>
+                            }
                         </td>
                     </tr>
                 }

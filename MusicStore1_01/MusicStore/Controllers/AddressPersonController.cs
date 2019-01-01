@@ -122,7 +122,7 @@ namespace MusicStore.Controllers
                 htmlString += "<td style=\"line-height:40px;\"> " + item.Address + "</td>";
                 htmlString += "<td style=\"line-height:40px;\"> " + item.MobiNumber + "</td>";
               
-                htmlString += "<td style=\"line-height:40px;\"> <a href='../EidtAddressPerson/AddressPerson/" + item.ID + "'> 修改</a> &nbsp; <a href=\"#\" onclick=\"RemoveDetail('" + item.ID + "');\"> </a> </td>";         
+                htmlString += "<td style=\"line-height:40px;\"> <a href='../EidtAddressPerson/AddressPerson/" + item.ID + "'> 修改</a> &nbsp; <a href=\"#\" onclick=\"RemoveDetail('" + item.ID + "');\"> 删除</a> </td>";         
             }
             return Json(htmlString);
        
