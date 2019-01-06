@@ -44,17 +44,19 @@ namespace MusicStore.Controllers
             _context.SaveChanges();
 
             var Albums = _context.Albums.SingleOrDefault(x => x.ID == id);
-            
+
             var HtmlString = "";
             foreach (var item in Albums.Reply.OrderByDescending(x => x.ReplyTime))
             {
                 var sonCmt = _context.Reply.Where(x => x.ParentReply.ID == item.ID).ToList().Count;
                 ViewBag.count = sonCmt;
                 HtmlString += " <div class=\"Music-Reply\">";
-                HtmlString += " <img src = "+ item.Person.Avarda + " alt = 加载失败 />";
-                HtmlString += "<p> <span> " + item.Person.Name + "</ span >：" + item.Content + " </p>";
-                HtmlString += " <div class=\"Reply-time\"> <a href=\"#container\" onclick=\"javascript:GetQuote("+ item.ID+ ")\">回复</a> <a href='#'onclick=\"javascript: ShowCmt('"+ item.ID+ "');\">(" + sonCmt + ")</a>";
-                HtmlString += " | <a href=\"#\" onclick=\"javascript:Like('" + item.ID + "');><i class=\"glyphicon glyphicon-thumbs-up\"></i>（" + item.Like+ "）</a> | <a href=\"#\" onclick=\"javascript:Like('" + item.ID + "');><i class=\"glyphicon glyphicon-thumbs-down\"></i>（" + item.Hate+"）</a> | 发表时间："+item.ReplyTime+"</div>";
+                HtmlString += " <img src = " + item.Person.Avarda + " alt = 加载失败 />";
+                HtmlString += "<p id='Content-" + item.ID + "'> <span> " + item.Person.Name + "：</ span >" + item.Content + " </p>";
+                HtmlString += " <div class=\"Reply-time\"> <a href=\"#container\" onclick=\"javascript:GetQuote('" + item.ID + "','" + item.ID + "')\">回复</a> <a href='#'onclick=\"javascript: ShowCmt('" + item.ID + "');\">(" + sonCmt + ")</a>";
+                HtmlString += " | <a onclick=\"javascript:Like('" + item.ID + "')\";><i class=\"glyphicon glyphicon-thumbs-up\">（" + item.Like + "）</i></a> ";
+                HtmlString += "| <a  onclick=\"javascript:Hate('" + item.ID + "')\";><i class=\"glyphicon glyphicon-thumbs-down\">（" + item.Hate + "）</i></a>";
+                HtmlString += " | 发表时间：" + item.ReplyTime + "</div>";
                 HtmlString += " </div>";
             }
 
@@ -62,7 +64,7 @@ namespace MusicStore.Controllers
             return Json(HtmlString);
         }
         [HttpPost]
-        public ActionResult FIndex(Guid  id)
+        public ActionResult FIndex(Guid id)
         {
             var Albums = _context.Albums.SingleOrDefault(x => x.ID == id);
 
@@ -73,11 +75,13 @@ namespace MusicStore.Controllers
                 ViewBag.count = sonCmt;
                 HtmlString += " <div class=\"Music-Reply\">";
                 HtmlString += " <img src = " + item.Person.Avarda + " alt = 加载失败 />";
-                HtmlString += "<p> <span> " + item.Person.Name + "</ span >：" + item.Content + " </p>";
-                HtmlString += " <div class=\"Reply-time\"> <a href=\"#container\" onclick=\"javascript:GetQuote(" + item.ID + ")\">回复</a> <a href='#'onclick=\"javascript: ShowCmt('" + item.ID + "');\">(" + sonCmt + ")</a>";
-                HtmlString += " | <a href=\"#\" onclick=\"javascript:Like('"+item.ID+"');\"><i class=\"glyphicon glyphicon-thumbs-up\"></i>（"+item.Like+ "）</a> | <a href=\"#\" onclick= \"javascript:Hoke('"+item.ID+"');\"><i class=\"glyphicon glyphicon-thumbs-down\"></i>（"+item.Hate+"）</a>  | 发表时间：" + item.ReplyTime + "</div>";
+                HtmlString += "<p id='Content-" + item.ID + "'> <span> " + item.Person.Name + "：</ span >" + item.Content + " </p>";
+                HtmlString += " <div class=\"Reply-time\"> <a href=\"#container\" onclick=\"javascript:GetQuote('" + item.ID + "','" + item.ID + "')\">回复</a> <a href='#'onclick=\"javascript: ShowCmt('" + item.ID + "');\">(" + sonCmt + ")</a>";
+                HtmlString += " | <a onclick=\"javascript:Like('" + item.ID + "')\";><i class=\"glyphicon glyphicon-thumbs-up\">（" + item.Like + "）</i></a> ";
+                HtmlString += "| <a onclick=\"javascript:Hate('" + item.ID + "')\";><i class=\"glyphicon glyphicon-thumbs-down\">（" + item.Hate + "）</i></a>";
+                HtmlString += " | 发表时间：" + item.ReplyTime + "</div>";
                 HtmlString += " </div>";
-               
+
             }
             if (Albums.Reply.Count == 0)
             {
