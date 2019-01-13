@@ -20,7 +20,12 @@ a:hover {
         text-decoration: none;
          cursor:pointer; 
 }
-
+.buybutton {
+    line-height: 40px; 
+    padding: 0;
+    height:40px;
+    float:right;
+}
 /*nav*/
 .navbar-header {
     padding-right: 45%;

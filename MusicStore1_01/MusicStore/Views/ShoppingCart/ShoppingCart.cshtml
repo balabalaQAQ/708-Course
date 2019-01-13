@@ -6,9 +6,10 @@
 <h2><i class="glyphicon glyphicon-shopping-cart"></i><em>游览</em>&nbsp;   您的购物车</h2>
 
 <p class="button">
-    @Html.ActionLink("马上购买", "buy", "Order")
+   
 </p>
-
+<br/>
+<br />
 <div class="table-responsive " >
     <table class="table table-bordered table-hover">
         <thead> <tr style="background-color:gray; color:white"><th>专辑名称</th><th width="150px;">数量</th><th>单价</th><th>操作</th></tr></thead>
@@ -32,7 +33,9 @@
         </tbody>
     </table>
 </div>
-
+<p>
+    <a href="../Order/buy"  class ="btn btn-success buybutton" style="width:100px;text-align:center;">马上购买</a>
+</p>
 <script>
     function removeCart(id) {
         //ajax提交到服务器端进行购物车项的删除
