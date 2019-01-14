@@ -10,6 +10,12 @@
 </p>
 <br/>
 <br />
+@if (Model.CartItems.Count() == 0)
+{
+    <div class="Reply-null"> 购物车空空的呢~去添加几个专辑进购物车吧！</div>
+}
+else
+{
 <div class="table-responsive " >
     <table class="table table-bordered table-hover">
         <thead> <tr style="background-color:gray; color:white"><th>专辑名称</th><th width="150px;">数量</th><th>单价</th><th>操作</th></tr></thead>
@@ -36,6 +42,7 @@
 <p>
     <a href="../Order/buy"  class ="btn btn-success buybutton" style="width:100px;text-align:center;">马上购买</a>
 </p>
+}
 <script>
     function removeCart(id) {
         //ajax提交到服务器端进行购物车项的删除

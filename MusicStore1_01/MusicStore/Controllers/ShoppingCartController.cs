@@ -70,12 +70,12 @@ namespace MusicStore.Controllers
             var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
             //查询出该用户的购物车项
             var carts = _context.Cart.Where(x => x.Person.ID == person.ID).ToList();
-            if (carts.Count() == 0)
-            {
+            //if (carts.Count() == 0)
+            //{
 
-                return Content("<script>alert('请先将专辑加入购物车!');location.href='" + Url.Action("index", "home") +
-                               "'</script>");
-            }
+            //    return Content("<script>alert('请先将专辑加入购物车!');location.href='" + Url.Action("index", "home") +
+            //                   "'</script>");
+            //}
             //算购物车的总价
             decimal? totalPrice = (from item in carts select item.Count * item.Album.Price).Sum();//linq表达式一句完成
 

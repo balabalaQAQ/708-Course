@@ -14,36 +14,47 @@
     @using (Html.BeginForm())
     {
         <legend>您想购买的专辑列表</legend>
-        <div class="table-responsive ">
-            <table class="table table-bordered table-hover">
-                <thead> <tr style="background-color:gray; color:white"><th>专辑名称</th><th width="150px;">数量</th><th>单价</th><th>操作</th></tr></thead>
-                <tbody id="tbCart">
-                    @foreach (var l in Model.OrdelDetails)
+        if (Model.OrdelDetails.Count() == 0)
+        {
+            <div class="Reply-null"> 购物车空空的呢~去添加几个专辑进购物车吧！</div>
+        }
+        else
+        {
+            <div class="table-responsive ">
+                <table class="table table-bordered table-hover">
+                    <thead> <tr style="background-color:gray; color:white"><th>专辑名称</th><th width="150px;">数量</th><th>单价</th><th>操作</th></tr></thead>
+                    <tbody id="tbCart">
+                        @foreach (var l in Model.OrdelDetails)
                     {
+                            <tr>
+                                <td>
+                                    @Html.ActionLink(l.Album.Title, "detail", "store", new { id = l.Album.ID }, null)
+                                </td>
+                                <td>
+                                    @l.Count
+                                </td>
+                                <td>@l.Album.Price.ToString("C")</td>
+                                <td><a href="#" id="del" onclick="RemoveDetail('@l.ID');"> <i class="glyphicon glyphicon-remove"></i>我不喜欢这个了 抛弃！</a></td>
+                            </tr>
+                        }
                         <tr>
-                            <td>
-                                @Html.ActionLink(l.Album.Title, "detail", "store", new { id = l.Album.ID }, null)
-                            </td>
-                            <td>
-                                @l.Count
-                            </td>
-                            <td>@l.Album.Price.ToString("C")</td>
-                            <td><a href="#" id="del" onclick="RemoveDetail('@l.ID');"> <i class="glyphicon glyphicon-remove"></i>我不喜欢这个了 抛弃！</a></td>
+                            <td colspan="4" style="text-align:right">总价格：<span style="color:red"> @Model.TotalPrice.ToString("C")</span></td>
                         </tr>
-                    }
-                    <tr>
-                        <td colspan="4" style="text-align:right">总价格：<span style="color:red"> @Model.TotalPrice.ToString("C")</span></td>
-                    </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
-        </div>
+            </div>
+
+        }
     }
+    @if (Model.OrdelDetails.Count() != 0)
+    {
     <p>
         <button type="submit" class="btn btn-success" style="width:100px" onclick="Addperson()">
             <i class="glyphicon glyphicon-shopping-cart">确认购买</i>
         </button>
     </p>
+    }
 </fieldset>
 
 <script>
@@ -66,22 +77,21 @@
         var ddl = document.getElementById("ID")
         var index = ddl.selectedIndex;
         console.log(index);
-       
-        if (index == -1)
-        {
+
+        if (index == -1) {
             alert("请先设置一个收件地址！");
         }
         else {
             var Value = ddl.options[index].value;
 
-        $.ajax({
-            type: 'post',
-            async: true,
-            url: "../../Order/Buy",
-            data: { id: Value },
-            dataType: 'json',
+            $.ajax({
+                type: 'post',
+                async: true,
+                url: "../../Order/Buy",
+                data: { id: Value },
+                dataType: 'json',
 
-        });
+            });
         }
     }
 </script>
