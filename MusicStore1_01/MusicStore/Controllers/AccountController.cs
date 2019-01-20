@@ -59,14 +59,14 @@ namespace MusicStore.Controllers
                 };
                 //是否要验证Email
                 var idManager = new IdentityManager();
-                idManager.CreateUser(newUser,model.PassWord);
-                idManager.AddUserToRole(newUser.Id,"RegisterUser");
+                idManager.CreateUser(newUser, model.PassWord);
+                idManager.AddUserToRole(newUser.Id, "RegisterUser");
                 //_context.Persons.Add(person);
                 //_context.SaveChanges();
 
                 return Content("<script>alert('恭喜注册成功!');location.href='" + Url.Action("Login", "Account") +
                                "'</script>");
-               
+
             }
             else { return View(); }
         }
@@ -224,25 +224,31 @@ namespace MusicStore.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult SRefreshUser(Guid id )
+        public ActionResult SRefreshUser(Guid id)
         {
-             
+            EntityDbContext _context = new EntityDbContext();
             var person = _context.Persons.SingleOrDefault(x => x.ID == id);
-            if (person == null) return View();
-            string HtmlString="";
-            var Cart = _context.Cart.Where(x => x.Person.ID == id).ToList();
-            HtmlString += "<input type=hidden id=" + person.ID + " value=" + person.ID + "/>";
-            HtmlString += "<a href =\"#\" class=\"dropdown-toggle\" data-toggle=dropdown  role = button   aria-haspopup=true aria-expanded=false>";
-            HtmlString += " <img src =" + person.Avarda + " style = \"height:25px;width:25px; border-radius:50%;\" />";
-            HtmlString += " " +person.Name+ "<span class=\"caret\"></span> </a>";
-            HtmlString += "<ul class=\" dropdown-menu \">";
-            HtmlString += "<li><a href =\"/ShoppingCart/ShoppingCart\">购物车（" + Cart.Count+ "）</a> </li>";
-            HtmlString += "<li><a href = \"/Order/index\">我的订单</a> </li>";
-            HtmlString += "<li><a href = \"/AddressPerson/index\">设置收件人</a></li>";
-            HtmlString += "<li><a href = \"/my/index\">个人信息</a> </li>";
-            HtmlString += "<li><a href = \"/Account/RevisePwd \">修改密码</a> </li>";
-            HtmlString += "<li><a href = \"/Account/loginout\">注销</a> </li>";
-            HtmlString += "</ul>";
+            string HtmlString = "";
+            if (person == null)
+            {
+                HtmlString = "<li class=\"active\"  id=\"User\"><a href = \"/Account/login\">登录</a></li>";
+                return Json(HtmlString);
+            }
+            else{
+                var Cart = _context.Cart.Where(x => x.Person.ID == id).ToList();
+                HtmlString += "<input type=hidden id=" + person.ID + " value=" + person.ID + "/>";
+                HtmlString += "<a href =\"#\" class=\"dropdown-toggle\" data-toggle=dropdown  role = button   aria-haspopup=true aria-expanded=false>";
+                HtmlString += " <img src =" + person.Avarda + " style = \"height:25px;width:25px; border-radius:50%;\" />";
+                HtmlString += " " + person.Name + "<span class=\"caret\"></span> </a>";
+                HtmlString += "<ul class=\" dropdown-menu \">";
+                HtmlString += "<li><a href =\"/ShoppingCart/ShoppingCart\">购物车（" + Cart.Count + "）</a> </li>";
+                HtmlString += "<li><a href = \"/Order/index\">我的订单</a> </li>";
+                HtmlString += "<li><a href = \"/AddressPerson/index\">设置收件人</a></li>";
+                HtmlString += "<li><a href = \"/my/index\">个人信息</a> </li>";
+                HtmlString += "<li><a href = \"/Account/RevisePwd \">修改密码</a> </li>";
+                HtmlString += "<li><a href = \"/Account/loginout\">注销</a> </li>";
+                HtmlString += "</ul>";
+            }
             return Json(HtmlString);
         }
     }

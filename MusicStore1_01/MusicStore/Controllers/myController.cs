@@ -19,7 +19,7 @@ namespace MusicStore.Controllers
             //1.确认用户是否登录 是否登录过期
             if (Session["LoginUserSessionModel"] == null)
                 return RedirectToAction("login", "Account", new { returnUrl = Url.Action("Index", "my") });
-
+         
             //2.查询出当前用户Person 查询该用户的购物项
             var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
 
@@ -39,6 +39,7 @@ namespace MusicStore.Controllers
         {
             if (Session["LoginUserSessionModel"] == null)
                 return RedirectToAction("login", "Account", new { returnUrl = Url.Action("Index", "my") });
+           
             var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
 
             //用户原来的头像
@@ -68,7 +69,7 @@ namespace MusicStore.Controllers
                 AddPerson.Birthday = model.Birthday;
                 //model.Avarda.SaveAs(AddPerson.Avarda);
                 _context.SaveChanges();
-
+                (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person = person;
                 return Content("<script>alert('修改成功!');location.href='" + Url.Action("index", "home") +
                              "'</script>");
             }

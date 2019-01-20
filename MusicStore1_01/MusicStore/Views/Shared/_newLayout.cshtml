@@ -5,6 +5,7 @@
 @{
     //判断用户是否登录，如果ApplicationUser user不为空表示用户登录成功
 
+
     var loginUserModel = Session["LoginUserSessionModel"] as LoginUserSessionModel;
     ApplicationUser user = null;
     //查询购物车  收藏车
@@ -15,7 +16,10 @@
     {
         if (loginUserModel.User != null)
         {
-            user = loginUserModel.User;
+            EntityDbContext _context = new EntityDbContext();
+            var newuser= (Session["LoginUserSessionModel"] as LoginUserSessionModel).User = _context.Users.SingleOrDefault(x=>x.Id== loginUserModel.User.Id);
+          
+            user = newuser;
         }
         //查询购物车  收藏车
         cart = new EntityDbContext().Cart.Where(x => x.Person.ID == user.Person.ID).ToList();
@@ -61,20 +65,11 @@
                         //登录成功显示用户姓名，点姓名展开向下菜单
                         <li class="dropdown" id="User">
                             <input type="hidden" id="Userid" value="@user.Person.ID" />
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false" onclick="stop()">
                                 <img src="@user.Person.Avarda" style="height:25px;width:25px; border-radius:50%;" />
                                 @user.Person.Name<span class="caret"></span>
-                            </a>
-@*
-    <ul class="dropdown-menu">
-        <li><a href="@Url.Action("ShoppingCart", "ShoppingCart")">购物车（@cart.Count()）</a></li>
-        <li><a href="@Url.Action("index", "Order")">我的订单</a></li>
-        <li><a href="@Url.Action("index", "AddressPerson")">设置收件人</a></li>
-        <li><a href="@Url.Action("index", "my")">个人信息</a></li>
-        <li><a href="@Url.Action("RevisePwd", "Account")">修改密码</a></li>
-        <li><a href="@Url.Action("loginout", "account")">注销</a></li>
-    </ul>*@
+                            </a> 
                         </li>
                     }
 
