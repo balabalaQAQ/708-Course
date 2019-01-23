@@ -60,8 +60,8 @@ namespace MusicStore.Controllers
 
             //收货人下拉框
             var buyitem = _context.Persons.SingleOrDefault(x => x.ID == person.ID).PerAddress;
-     
- 
+
+
 
             var list = new List<SelectListItem>();
 
@@ -200,6 +200,16 @@ namespace MusicStore.Controllers
                 return RedirectToAction("login", "Account", new { returnUrl = Url.Action("Index", "Order") });
 
             return RedirectToAction("Alipay", "Pay", new { id = orderid });
+        }
+        [HttpPost]
+        public ActionResult OrderDel(Guid id)
+        {
+            //删除订单
+            var Order = _context.Order.SingleOrDefault(x => x.ID == id);
+            _context.Order.Remove(Order);
+            _context.SaveChanges();
+            return Json();
+            
         }
     }
 }
