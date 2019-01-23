@@ -208,8 +208,17 @@ namespace MusicStore.Controllers
             var Order = _context.Order.SingleOrDefault(x => x.ID == id);
             _context.Order.Remove(Order);
             _context.SaveChanges();
-            return Json();
-            
-        }
+            string HtmlString = "";
+            foreach (var item in _context.Order)
+            {
+                HtmlString += "< tr > < td style = \"line-height:30px; \">  订单号： "+item.TradeNo+ " < br />   收件人：" + item.AddressPerson + "  < br /> 收货地址：" + item.Address + "   < br />    收件人电话：" + item.MobiNumber + "  < br />  </ td >";
+                HtmlString += "< td style =\"line-height:100px;\" >";
+                HtmlString += "</tr>";
+            }
+
+       
+            return Json(HtmlString);
+
+}
     }
 }
