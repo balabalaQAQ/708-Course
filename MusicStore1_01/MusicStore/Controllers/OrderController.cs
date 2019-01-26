@@ -136,6 +136,7 @@ namespace MusicStore.Controllers
             {
                 item.Album = _context.Albums.Find(item.Album.ID);
                 order.OrdelDetails.Add(item);
+                _context.SaveChanges();
             }
 
             order.TotalPrice = (from item in order.OrdelDetails select item.Count * item.Album.Price).Sum();
@@ -202,7 +203,7 @@ namespace MusicStore.Controllers
             return RedirectToAction("Alipay", "Pay", new { id = orderid });
         }
         [HttpPost]
-        public ActionResult OrderDel(Guid id)
+        public ActionResult OrderDel(Guid id, Guid Detid)
         {
             //删除订单
             var Order = _context.Order.SingleOrDefault(x => x.ID == id);
