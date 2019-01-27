@@ -153,11 +153,33 @@ a:hover {
 /*END*/
 
 /*Music-Order-Buy*/
-.sundry 
-{
+#tbCart tr td{
    vertical-align:bottom;
 }
+#tbCart tr .Alum {
+    line-height:30px;
+    vertical-align:top;
+}
+#tbCart tr .Detail {
+    vertical-align:top;
+}
+.OrderDelbtn{
+    width:38%;
+    float:right;
+    text-align:center;
+    padding :0;
+    line-height:40px;
+    
+}
+.OrderBuybtn {
+    color: white;
+    width:58%;
+    text-align:center;
+    padding :0;
+    line-height:40px;
+}
 /*END*/
+
 /*Music-Reply*/
 #Reply {
     margin-top:50px;

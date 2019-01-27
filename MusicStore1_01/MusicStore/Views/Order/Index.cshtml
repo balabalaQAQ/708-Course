@@ -16,30 +16,28 @@
 
                 <tbody id="tbCart">
                     <tr>
-
-                        <td style="line-height:30px;">
-                            
+                        <td class="Alum"> 
                             订单号： @l.TradeNo<br />
                             收件人： @l.AddressPerson<br />
                             收货地址： @l.Address<br />
                             收件人电话： @l.MobiNumber<br />
                         </td>
-                        <td>
+                        <td class="Detail">
                             @foreach (var i in l.OrdelDetails)
                             {
                                 <p> 专辑名： @i.Album.Title  &nbsp;<br /> 共 @i.Count 张</p>
                             }
                         </td>
-                        <td style="line-height:100px;color:red;" class="sundry">@l.TotalPrice.ToString("C")</td>
-                        <td style="line-height:100px;">
+                        <td style="color:red;font-size:18px;" >@l.TotalPrice.ToString("C")</td>
+                        <td>
                             @l.EnumOrdelStatus
                         </td>
                         <td>
                             @if (l.EnumOrdelStatus == EnumOrdelStatus.未付款)
                             {
-                                <a style="color: white;width:60%" class="btn btn-success" href="@Url.Action("alipay","Pay",new {id= l.ID})"><i class="glyphicon glyphicon-usd"></i>立即支付</a>
+                                <a class="OrderBuybtn btn btn-success" href="@Url.Action("alipay","Pay",new {id= l.ID})"><i class="glyphicon glyphicon-usd"></i>立即支付</a>
                                 
-                                <button class="btn btn-success"onclick="OrderDel('@l.ID')"> 删除订单 </button>
+                                <button class="OrderDelbtn  btn btn-danger"onclick="OrderDel('@l.ID')"> 取消订单 </button>
  
                             }
                         </td>
