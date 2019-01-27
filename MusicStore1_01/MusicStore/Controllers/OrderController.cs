@@ -203,23 +203,38 @@ namespace MusicStore.Controllers
             return RedirectToAction("Alipay", "Pay", new { id = orderid });
         }
         [HttpPost]
-        public ActionResult OrderDel(Guid id, Guid Detid)
+        public ActionResult OrderDel(Guid id)
         {
             //删除订单
+
             var Order = _context.Order.SingleOrDefault(x => x.ID == id);
+            if (Order.OrdelDetails.Count != 0)
+            {
+                foreach (var i in Order.OrdelDetails.ToList())
+                {
+                    var OrderDet = _context.OrdelDetail.SingleOrDefault(x => x.ID == i.ID);
+                    _context.OrdelDetail.Remove(OrderDet);
+                }
+            }
             _context.Order.Remove(Order);
             _context.SaveChanges();
+
+            //刷新 视图
+            var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
+            var Orders = _context.Order.Where(x => x.Person.ID == person.ID).ToList();
             string HtmlString = "";
-            foreach (var item in _context.Order)
+            foreach (var item in Orders)
             {
-                HtmlString += "< tr > < td style = \"line-height:30px; \">  订单号： "+item.TradeNo+ " < br />   收件人：" + item.AddressPerson + "  < br /> 收货地址：" + item.Address + "   < br />    收件人电话：" + item.MobiNumber + "  < br />  </ td >";
-                HtmlString += "< td style =\"line-height:100px;\" >";
+                HtmlString += "<tr > < td style = \"line-height:30px; \">  订单号： " + item.TradeNo + " < br />   收件人：" + item.AddressPerson + "  < br /> 收货地址：" + item.Address + "   < br />    收件人电话：" + item.MobiNumber + "  < br />  </ td >";
+                HtmlString += "<td style =\"line-height:100px;\" >    订单号：" + item.TradeNo + "< br />    收件人：" + item.AddressPerson + "  < br /> 收货地址： " + item.AddressPerson + " < br />   收件人电话：" + item.MobiNumber + "< br />   </ td >";
+                HtmlString += " <td style = \"line-height:100px;\"> @foreach(var i in l.OrdelDetails) {< p > 专辑名： @i.Album.Title & nbsp;< br /> 共 @i.Count 张</ p > } ";
+                HtmlString += " <td style = \"line-height:100px; color: red;\">" + @item.TotalPrice.ToString("C") + " </ td > ";
+                HtmlString += " <td style = \"line-height:100px; \" >" + item.EnumOrdelStatus + "  </ td >";
+                HtmlString += "< td>  @if(l.EnumOrdelStatus == EnumOrdelStatus.未付款) { < a style = \"color: white;width:60%\" class=\"btn btn-success\" href=\"@Url.Action(\"alipay\",\"Pay\",new {id= l.ID})\"><i class=\"glyphicon glyphicon-usd\"></i>立即支付</a> <button class=\"btn btn-success\"onclick=\"OrderDel('@l.ID')\"> 删除订单</button> } </td>";
                 HtmlString += "</tr>";
             }
-
-       
             return Json(HtmlString);
 
-}
+        }
     }
 }

@@ -18,19 +18,19 @@
                     <tr>
 
                         <td style="line-height:30px;">
-
+                            
                             订单号： @l.TradeNo<br />
                             收件人： @l.AddressPerson<br />
                             收货地址： @l.Address<br />
                             收件人电话： @l.MobiNumber<br />
                         </td>
-                        <td style="line-height:100px;">
+                        <td>
                             @foreach (var i in l.OrdelDetails)
                             {
-                                <p>专辑名： @i.Album.Title  &nbsp;<br /> 共 @i.Count 张</p>
+                                <p> 专辑名： @i.Album.Title  &nbsp;<br /> 共 @i.Count 张</p>
                             }
                         </td>
-                        <td style="line-height:100px;color:red;">@l.TotalPrice.ToString("C")</td>
+                        <td style="line-height:100px;color:red;" class="sundry">@l.TotalPrice.ToString("C")</td>
                         <td style="line-height:100px;">
                             @l.EnumOrdelStatus
                         </td>
@@ -38,12 +38,9 @@
                             @if (l.EnumOrdelStatus == EnumOrdelStatus.未付款)
                             {
                                 <a style="color: white;width:60%" class="btn btn-success" href="@Url.Action("alipay","Pay",new {id= l.ID})"><i class="glyphicon glyphicon-usd"></i>立即支付</a>
-                               
-
-                                foreach (var m in l.OrdelDetails)
-                                {
-                                    <button class="btn btn-success"onclick="OrderDel('@l.ID','@m.ID')"> 删除订单 </button>
-                                }
+                                
+                                <button class="btn btn-success"onclick="OrderDel('@l.ID')"> 删除订单 </button>
+ 
                             }
                         </td>
                     </tr>
@@ -55,13 +52,13 @@
 
     </div>
     <script>
-        function OrderDel(id, Detid) {
+        function OrderDel(id) {
 
             $.ajax({
                 type: 'post',
                 async: true,
                 url: "../../Order/OrderDel",
-                data: { id: id, "Detid": Detid },
+                data: { id: id },
                 dataType: 'json',
                 success: function (data) {
                     //视图中进行局部页面的刷新<tbody>
