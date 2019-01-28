@@ -22,10 +22,12 @@
                             收货地址： @l.Address<br />
                             收件人电话： @l.MobiNumber<br />
                         </td>
+                        
                         <td class="Detail">
                             @foreach (var i in l.OrdelDetails)
                             {
-                                <p> 专辑名： @i.Album.Title  &nbsp;<br /> 共 @i.Count 张</p>
+                                <p> 专辑名： @i.Album.Title  &nbsp;&nbsp;&nbsp;&nbsp;单价：@i.Price <br /> 共 @i.Count 张</p>
+                                <br />
                             }
                         </td>
                         <td style="color:red;font-size:18px;" >@l.TotalPrice.ToString("C")</td>
