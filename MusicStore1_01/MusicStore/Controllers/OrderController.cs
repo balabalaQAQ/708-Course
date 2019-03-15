@@ -220,24 +220,24 @@ namespace MusicStore.Controllers
             _context.SaveChanges();
 
             //刷新 视图
-            EntityDbContext context = new EntityDbContext();
+           
             var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
-            var Orders = context.Order.Where(x => x.Person.ID == person.ID).ToList();
+            var Orders = _context.Order.Where(x => x.Person.ID == person.ID).ToList();
             string HtmlString = "";
             foreach (var item in Orders)
             {
-                HtmlString += "<tr> <td style = \"line-height:30px; \">  订单号： " + item.TradeNo + "<br /> 收件人：" + item.AddressPerson + "  <br /> 收货地址：" + item.Address + "   <br />    收件人电话：" + item.MobiNumber + "  <br />  </td >";
-                HtmlString += " <td style = \"line-height:100px;\">";
+                HtmlString += "<tr> <td  class=\"Alum\" >  订单号： " + item.TradeNo + "<br /> 收件人：" + item.AddressPerson + "  <br /> 收货地址：" + item.Address + "   <br />    收件人电话：" + item.MobiNumber + "  <br />  </td >";
+                HtmlString += " <td  class=\"Detail\"";
                 foreach (var i in item.OrdelDetails)
                 {
-                    HtmlString += "<p> 专辑名： " + i.Album.Title + " &nbsp;&nbsp;&nbsp;&nbsp; < br /> 共 "+ i.Count + " 张 </p> ";
+                    HtmlString += "<p> 专辑名： " + i.Album.Title + " &nbsp;&nbsp;&nbsp;&nbsp; 单价："+ i.Album.Price+" <br /> 共 " + i.Count + " 张 </p> ";
                 };
-                HtmlString += " <td style=\"color: red; font - size:18px; \">" + @item.TotalPrice.ToString("C") + " </ td > ";
-                HtmlString += " <td style = \"line-height:100px; \" >" + item.EnumOrdelStatus + "  </ td >";
+                HtmlString += " <td style=\"color: red; font-size:18px; \">" + @item.TotalPrice.ToString("C") + " </ td > ";
+                HtmlString += " <td>" + item.EnumOrdelStatus + "  </ td >";
                 HtmlString += "<td>";
                 if (item.EnumOrdelStatus == EnumOrdelStatus.未付款)
                 {
-                    HtmlString += "<a class=\"OrderBuybtn btn btn-success\" href=\"@Url.Action(\"alipay\",\"Pay\",new {id= "+item.ID+"})\"><i class=\"glyphicon glyphicon-usd\"></i>立即支付</a> <button class=\"OrderDelbtn btn btn-danger\"onclick=\"OrderDel('" + item.ID+"')\"> 删除订单</button> }";
+                    HtmlString += "<a class=\"OrderBuybtn btn btn-success\" href=\"@Url.Action(\"alipay\",\"Pay\",new {id= "+item.ID+"})\"><i class=\"glyphicon glyphicon-usd\"></i>立即支付</a> <button class=\"OrderDelbtn btn btn-danger\"onclick=\"OrderDel('" + item.ID+"')\"> 删除订单</button> ";
 
                 };
                 HtmlString += "</td>";  
