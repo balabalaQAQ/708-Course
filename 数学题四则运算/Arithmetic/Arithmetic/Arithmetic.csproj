@@ -46,6 +46,7 @@
     <Compile Include="..\Program.cs">
       <Link>Program.cs</Link>
     </Compile>
+    <Compile Include="Demand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -29,20 +29,33 @@ namespace Arithmetic
                     for (int i = 1; i <= num; i++)
                     {
                         double number1 = number.Next(0, 10);//随机一个10以内的数
-                        double number2 = number.Next(0, 10);//随机一个10以内的数
-                        int opnext = number.Next(0, 4);//随机一个 符号
-
-                        Formula = number1 + op[opnext] + number2 ;
-                    
-                        Formulanum = number1 + ll[opnext] + number2;
+                        double number2= number.Next(0, 10);//随机一个10以内的数
+                        double number3 = number.Next(0, 10);//随机一个10以内的数
+                        double number4 = number.Next(0, 10);//随机一个10以内的数
+                        int opnext1 = number.Next(0, 4);//随机一个 符号
+                        int opnext2 = number.Next(0, 4);//随机一个 符号
+                        int opnext3= number.Next(0, 4);//随机一个 符号
+                        int OP = number.Next(1, 3);//随机运算符数量
+                        switch (OP)
+                        {
+                            case 1:
+                                Formula = number1 + op[opnext1] + number2;
+                                Formulanum = number1 + ll[opnext1] + number2;
+                                break;
+                            case 2:
+                                Formula = number1 + op[opnext1] + number2+ op[opnext2]+ number3;
+                                Formulanum = number1 + ll[opnext1] + number2 + ll[opnext2] + number3;
+                                break;
+                            case 3:
+                                Formula = number1 + op[opnext1] + number2 + op[opnext2] + number3 + op[opnext3]+number4;
+                                Formulanum = number1 + ll[opnext1] + number2 + ll[opnext2] + number3 + ll[opnext3] + number4;
+                                break;
+                        }
                         DataTable dt = new DataTable();
                         string result = dt.Compute(Formula, "false").ToString();
 
-
-
                         Console.WriteLine(Formula + "=");
-                        Console.WriteLine(result);
-                        
+                        Console.WriteLine(result);   
 
                     }
                 }
