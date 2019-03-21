@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
-using System.Data;
+using System.Diagnostics;
 
 namespace Arithmetic
 {
@@ -12,106 +7,24 @@ namespace Arithmetic
     {
         static void Main(string[] args)
         {
-            Random number = new Random(); //实例化一个随机数  
-
-            Console.WriteLine("请设置出题量(1-100000)");
-            var Number = Console.ReadLine();
-            if (IsNumber(Number) == true)
+            Stopwatch sp = new Stopwatch();
+            sp.Start();
+            Console.WriteLine("请输入出题量（1-100000）题");
+            var number = Console.ReadLine();
+            var N = Demand.IsNumber(number, 1);
+            Console.WriteLine("请输入数据范围（1-100）");
+            var Range = Console.ReadLine();
+            var L = Demand.IsNumber(Range, 2);
+            Console.WriteLine("请输入运算符数量（1-3）个");
+            var rule = Console.ReadLine();
+            var r = Demand.IsNumber(rule, 3);
+            if (N == L == r == true)
             {
-                int num=Convert.ToInt32(Number);
-                if (num > 0 && num <= 100000)
-                {
-                    string[] op = new string[] { "＋", "－", "×", "÷" };
-                    string[] ll = new string[] { "+", "-", "*", "/" };
-                    string Formula = "";
-                    string[] myArray = new string[num];
-
-                    for (int i = 1; i <= num; i++)
-                    {
-                        double number1 = number.Next(0, 10);//随机一个10以内的数
-                        double number2= number.Next(0, 10);//随机一个10以内的数
-                        double number3 = number.Next(0, 10);//随机一个10以内的数
-                        double number4 = number.Next(0, 10);//随机一个10以内的数
-                        int opnext1 = number.Next(0, 4);//随机一个 符号
-                        int opnext2 = number.Next(0, 4);//随机一个 符号
-                        int opnext3= number.Next(0, 4);//随机一个 符号
-                        int OP = number.Next(1, 3);//随机运算符数量
-                        switch (OP)
-                        {
-                            case 1:
-                                Formula = number1 + op[opnext1] + number2;
-                                Formulanum = number1 + ll[opnext1] + number2;
-                                break;
-                            case 2:
-                                Formula = number1 + op[opnext1] + number2+ op[opnext2]+ number3;
-                                Formulanum = number1 + ll[opnext1] + number2 + ll[opnext2] + number3;
-                                break;
-                            case 3:
-                                Formula = number1 + op[opnext1] + number2 + op[opnext2] + number3 + op[opnext3]+number4;
-                                Formulanum = number1 + ll[opnext1] + number2 + ll[opnext2] + number3 + ll[opnext3] + number4;
-                                break;
-                        }
-                        DataTable dt = new DataTable();
-                        string result = dt.Compute(Formula, "false").ToString();
-
-                        Console.WriteLine(Formula + "=");
-                        Console.WriteLine(result);   
-
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("请输入10000以内的整数");
-                }
+                Demand.OpNumber(number, Range, Convert.ToInt32(rule));
             }
-            
-            else
-            {
-                Console.WriteLine("请输入10000以内的整数");
-            }
-
-
-            //if (Convert.ToInt32(Number)!= Number)
-            //string[] op = new string[] { "＋", "－", "×", "÷" };//定义一个符号数组
-            //string[] myArray = new string[10];
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    double number1 = number.Next(1, 10);//随机一个10以内的数
-            //    double number2 = number.Next(1, 10);//随机一个10以内的数
-            //    int opnext = number.Next(0, 4);//随机一个 符号
-            //    double result = 0;
-            //    switch (opnext)
-            //    {
-            //        case 0:
-            //            result = number1 + number2;
-            //            break;
-            //        case 1:
-            //            result = number1 - number2;
-            //            break;
-            //        case 2:
-            //            result = number1 * number2;
-            //            break;
-            //        case 3:
-            //            result = number1 / number2;
-            //            do { number1 = number.Next(1, 10); result = number1 / number2; }
-            //            while (result != Convert.ToInt32(result));//若有小数则重新随机一个数
-            //            break;
-            //    }
-            //    Console.WriteLine(number1 + op[opnext] + number2 + "=" + result);//输出公式
-            //}
-           
+            sp.Stop();
+            Console.WriteLine(sp.Elapsed.ToString());
             Console.ReadKey();
-        }
-        public static bool IsNumber(string input)
-        {
-            if (Regex.IsMatch(input, @"^[+-]?\d*[.]?$"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

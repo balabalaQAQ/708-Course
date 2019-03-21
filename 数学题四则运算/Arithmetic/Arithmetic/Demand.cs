@@ -7,8 +7,14 @@ using System.Text.RegularExpressions;
 using System.Data;
 namespace Arithmetic
 {
+
     public class Demand
     {
+        static string[] op = new string[] { "＋", "－", "×", "÷" };//显示符号
+        static string[] ll = new string[] { "+", "-", "*", "/" };//运算符号
+        static string result = "";//结果
+        static string Formula = "";//显示的文本
+        static string Formulanum = "";//用于运算的文本
         /// <summary>
         /// 判断输入的类型是否为整数
         /// </summary>
@@ -20,11 +26,8 @@ namespace Arithmetic
             {
                 return true;
             }
-            else
-            {
                 Console.WriteLine("请输入整数");
                 return false;
-            }
         }
         /// <summary>
         /// 问题验证
@@ -46,42 +49,33 @@ namespace Arithmetic
                 }
                 if (l == 2)
                 {
-                    if (num <= 0 || num > 100)
+                    if (num <= 1 || num > 100)
                     {
                         Console.WriteLine("请输入正确的数据范围");
                     }
                 }
                 return true;
-
             }
-            else
-            {
                 return false;
-            }
-
         }
         /// <summary>
         /// 公式配置与运算
         /// </summary>
         /// <param name="Number">初始数</param>
         /// <param name="Range">数据范围</param>
-        public static void OpNumber(string Number, string Range)
+        /// <param name="rule">运算符数量</param> 
+        public static void OpNumber(string Number, string Range,int rule)
         {
             Random number = new Random(); //实例化一个随机数  
             int num = Convert.ToInt32(Number);
-            int range = Convert.ToInt32(Number);
-
-            string[] op = new string[] { "＋", "－", "×", "÷" };
-            string[] ll = new string[] { "+", "-", "*", "/" };
-            string Formula = "";
-            string Formulanum = "";
+            int range = Convert.ToInt32(Range);
             string[] myArray = new string[num];
             DataTable dt = new DataTable();
             for (int i = 1; i <= num; i++)
             {
                 double number1 = number.Next(0, range);//随机一个初始数
-                int OP = number.Next(1, 4);//随机运算符数量
-                string result = "";//结果
+                int OP = number.Next(1, rule+1);//随机运算符数量
+             
                 Formulanum = Formula = "";
                 Formulanum = Formula += number1;
                 for (int j = 1; j <= OP; j++)
@@ -94,10 +88,10 @@ namespace Arithmetic
                         number2 = number.Next(0, range);//重新随机一个数
                     }
                     int newOP = FormulaOP(opnext);
+
                     Formula += op[newOP] + number2;
                     Formulanum += ll[newOP] + number2;
                 }
-
                 result = dt.Compute(Formulanum, "false").ToString();
                 if (IsNumber(result, 6) == false)
                 {
@@ -105,9 +99,7 @@ namespace Arithmetic
                     Console.WriteLine(Formula + "≈" + result);
                 }
                 Console.WriteLine(Formula + "=" + result);
-
             }
-
         }
         /// <summary>
         /// 代码算式优化
@@ -126,21 +118,23 @@ namespace Arithmetic
                     NewOpnext = number.Next(0, 4);
                     return NewOpnext;
                 }
-
                 return opnext;
             }
             if (opnext == 3)//避免太多的除法
             {
-
-                if (opnext == l)
+                l++;
+                if (opnext >1)
                 {
                     NewOpnext = number.Next(0, 4);
                     return NewOpnext;
                 }
-                l = opnext;
                 return opnext;
             }
             return opnext;
+        }
+        public static string Fraction()
+        {
+            return null;
         }
 
     }
