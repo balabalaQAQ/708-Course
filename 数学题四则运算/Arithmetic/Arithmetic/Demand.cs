@@ -42,7 +42,7 @@ namespace Arithmetic
                 var num = Convert.ToDouble(input);
                 if (l == 1)
                 {
-                    if (num <= 0 || num >= 100000)
+                    if (num <= 0 || num > 100000)
                     {
                         Console.WriteLine("请输入正确的出题量范围");
                     }
@@ -52,6 +52,13 @@ namespace Arithmetic
                     if (num <= 1 || num > 100)
                     {
                         Console.WriteLine("请输入正确的数据范围");
+                    }
+                }
+                if (l == 3)
+                {
+                    if (num <= 1 || num > 3)
+                    {
+                        Console.WriteLine("请输入正确范围内的运算符数量");
                     }
                 }
                 return true;
@@ -132,6 +139,10 @@ namespace Arithmetic
             }
             return opnext;
         }
+        /// <summary>
+        /// 生成分数
+        /// </summary>
+        /// <returns></returns>
         public static string Fraction()
         {
             return null;
