@@ -118,7 +118,7 @@ namespace Arithmetic
         {
             Random number = new Random();
             int i = 0, l = 0, NewOpnext = 0;
-            if (opnext == 2)//避免太多的乘法
+            if (opnext == 3)//避免太多的乘法
             {
                 i++;
                 if (i > 2)
@@ -128,7 +128,7 @@ namespace Arithmetic
                 }
                 return opnext;
             }
-            if (opnext == 3)//避免太多的除法
+            if (opnext == 4)//避免太多的除法
             {
                 l++;
                 if (opnext > 1)
@@ -182,7 +182,7 @@ namespace Arithmetic
 
             }
             result = dt.Compute(Formulanum, "false").ToString();
-            if (Convert.ToDouble(result) < 0 || (opnext == 3 && number2 == 0))//判断算式是否存在除0或小于0
+            if (Convert.ToDouble(result) < 0 || (opnext == 4 && number2 == 0))//判断算式是否存在除0或小于0
             {
                 FormulaSetup(Range, rule, Grade);
             }
