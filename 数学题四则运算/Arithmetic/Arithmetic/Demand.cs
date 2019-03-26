@@ -193,8 +193,6 @@ namespace Arithmetic
                     FormulaSetup(Range, rule, Grade);
                 }
             }
-
         }
-
     }
 }
