@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -109,6 +110,7 @@ namespace Arithmetic
                 answer.Close();
             }
         }
+   
         /// <summary>
         /// 代码算式优化
         /// </summary>

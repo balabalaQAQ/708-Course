@@ -9,31 +9,17 @@ namespace PairArithmetic
 {
     class Program
     {
-        DataTable dt = new DataTable();
+
         static void Main(string[] args)
         {
+            Expression expression = new Expression();
 
-        }
-        //表达式处理
-        public string ExcHand(string number1, string op, string number2)
-        {
-            double num2 = Convert.ToDouble(number2);
-            if (op == "/" && num2 == 0)//无除零
-            {
+            //expression.ProblemSet("1年级", 1000, 100);
+            //expression.ProblemSet("2年级", 10000, 100);
+            expression.ProblemSet(2000, 1000, 100,2,true,true,true);
+            expression.ProblemSet(200, 100, 200, 2, false, false, true);
+            Console.ReadKey();
 
-            }
-            string result = number2 + op + number2;
-            result = dt.Compute(result, "flase").ToString();
-            if (Convert.ToDouble(result) < 0)//无负数
-            {
-
-            }
-        }
-        //表达式运算
-        public string Operation(string Expression)
-        {
-            string result = dt.Compute(Expression, "false").ToString();
-            return result;
-        }
+        }    
     }
 }
